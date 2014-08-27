@@ -1,19 +1,15 @@
 package mainpackage;
-/* 1, 2, 3, X
+
+/* This is class for single square.
  */
 public class Square {
-	private int number; //if number = 0 it is empty
-	
-	
-	
-	Square(int number){
-		this.number= number;
+	private int number; // if number = 0 it is empty
+
+	Square(int number) {
+		this.number = number;
 	}
-	
-	int getNumber(){
+
+	int getNumber() {
 		return number;
 	}
-	
-	
-	
 }
