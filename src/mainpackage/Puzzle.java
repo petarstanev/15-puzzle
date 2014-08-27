@@ -18,36 +18,43 @@ public class Puzzle {
 	}
 
 	public void move(String direction) {
-		int newxPos = xPos;
+		int newPos = xPos;
 
 		if (direction.equals("right")) {
-			newxPos++;
-
-			if (newxPos != 4 && newxPos != 8 && newxPos != 12 && newxPos != 16) {
-				actualMove(newxPos);
+			newPos++;
+			System.out.println("Going " + direction);
+			if (newPos != 4 && newPos != 8 && newPos != 12 && newPos != 16) {
+				actualMove(newPos);
 			}
 
 		} else if (direction.equals("left")) {
-			newxPos--;
-
-			if (newxPos != -1 && newxPos != 3 && newxPos != 7 && newxPos != 11) {
-				actualMove(newxPos);
+			newPos--;
+			System.out.println("Going " + direction);
+			if (newPos != -1 && newPos != 3 && newPos != 7 && newPos != 11) {
+				actualMove(newPos);
+			}
+		} else if (direction.equals("down")) {
+			newPos += 4;
+			System.out.println("Going " + direction);
+			if (newPos <= 15) {
+				actualMove(newPos);
+			}
+		} else if (direction.equals("up")) {
+			newPos -= 4;
+			System.out.println("Going " + direction);
+			if (newPos >= 0) {
+				actualMove(newPos);
 			}
 		}
 	}
 
-	private void actualMove(int newxPos) {
-		if (map.get(newxPos) != null) {
-			// System.out.println("xPos - " + xPos + "xPossquare num" +
-			// map.get(xPos).getNumber());
-			// System.out.println("newxPos - " + newxPos + "newxPossquare num" +
-			// map.get(newxPos).getNumber());
-
+	private void actualMove(int newPos) {
+		if (map.get(newPos) != null) {
 			Square savesquare = map.get(xPos);
-			map.put(xPos, map.get(newxPos));
+			map.put(xPos, map.get(newPos));
 
-			map.put(newxPos, savesquare);
-			xPos = newxPos;
+			map.put(newPos, savesquare);
+			xPos = newPos;
 			printmap();
 		}
 	}
