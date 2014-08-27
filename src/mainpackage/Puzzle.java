@@ -23,7 +23,7 @@ public class Puzzle {
 
 		for (int i = 0; i < 16; i++) {
 			Square singlesquare = new Square(i);
-			map.put(i, singlesquare);
+			map.put(i, singlesquare);			
 		}
 		
 		//removed seed just for testing
