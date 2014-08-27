@@ -11,6 +11,8 @@ import java.awt.Color;
  */
 public class Square {
 	private int number; // if number = 0 it is empty
+	private int x;
+	private int y;
 	private JLabel JLabel;
 
 	Square(int number) {
@@ -18,20 +20,27 @@ public class Square {
 			JLabel = new JLabel(number + "");
 			JLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
 			JLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			JLabel.setOpaque(true);
 			JLabel.setBackground(Color.green);
-			// JLabel.setBounds(99, 119, 50, 50);
 		} else {
 			JLabel = new JLabel("");
 			JLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
 			JLabel.setHorizontalAlignment(SwingConstants.CENTER);
+			JLabel.setOpaque(true);
 			JLabel.setBackground(Color.black);
 		}
 		// contentPanel.add(JLabel);
 		this.number = number;
 	}
 
-	JLabel getJLabel() {
-		return JLabel;
+	void setCoordinates(int x,int y) {
+		this.x = x;
+		this.y = y;
+		JLabel.setBounds(x, y, 50, 50);
+	}
+	
+	JLabel getJLabel(){
+		return this.JLabel;
 	}
 
 	int getNumber() {

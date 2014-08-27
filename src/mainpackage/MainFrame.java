@@ -24,11 +24,16 @@ import javax.swing.JToggleButton;
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.KeyStroke;
+
 import java.awt.Canvas;
 import java.awt.Color;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
 import java.awt.Font;
+
+import javax.swing.JTextPane;
 
 public class MainFrame extends JFrame {
 
@@ -55,26 +60,39 @@ public class MainFrame extends JFrame {
 	 */
 	public MainFrame() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 481, 371);
+		setBounds(100, 100, 553, 534);
 		contentPanel = new JPanel();
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
-		
+
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 465, 25);
+		menuBar.setBounds(0, 0, 465, 20);
 		contentPanel.add(menuBar);
-		
+
 		JMenu mnTestMenu = new JMenu("test menu");
 		menuBar.add(mnTestMenu);
 		
-		JButton btnNewButton_1 = new JButton("New game");
-		btnNewButton_1.addActionListener(new ActionListener() {
+		
+		JButton btnNewGame = new JButton("New game");
+		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("The button is working.");
+				Puzzle puzzle = new Puzzle();
+				
+				contentPanel.add(puzzle.PuzzletoPanel());
+				JLabel lblTexxxxxt = new JLabel("texxxxxt");
+				lblTexxxxxt.setBounds(67, 118, 46, 14);
+				contentPanel.add(lblTexxxxxt);
+				
+				 contentPanel.repaint();
+				//System.out.println("butt new game");
 			}
 		});
-		mnTestMenu.add(btnNewButton_1);
+		mnTestMenu.add(btnNewGame);
 		
+		
+		
+		
+
 	}
 }
