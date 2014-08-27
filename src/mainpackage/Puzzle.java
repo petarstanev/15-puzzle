@@ -1,5 +1,6 @@
 package mainpackage;
 
+import java.util.Random;
 import java.util.HashMap;
 
 /*This is class for the actual puzzle.
@@ -15,6 +16,33 @@ public class Puzzle {
 			Square singlesquare = new Square(i);
 			map.put(i, singlesquare);
 		}
+	}
+	
+	Puzzle(long seed) {
+		map = new HashMap<Integer, Square>();
+
+		for (int i = 0; i < 16; i++) {
+			Square singlesquare = new Square(i);
+			map.put(i, singlesquare);
+		}
+		
+		//removed seed just for testing
+		Random random = new Random();
+		
+		for(int i =0; i<10000;i++){
+			int direction = random.nextInt(3);
+			switch (direction){
+			case 0: this.move("right");
+			break;
+			case 1: move("left");
+			break;
+			case 2: move("down");
+			break;
+			case 3: move("up");
+			break;
+			}
+		}
+		printmap();
 	}
 
 	public void move(String direction) {
@@ -55,7 +83,7 @@ public class Puzzle {
 
 			map.put(newPos, savesquare);
 			xPos = newPos;
-			printmap();
+			//printmap();
 		}
 	}
 
