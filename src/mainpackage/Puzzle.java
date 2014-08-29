@@ -20,7 +20,6 @@ public class Puzzle {
 			Square singlesquare = new Square(i);
 			map.put(i, singlesquare);
 		}
-		System.out.println("constr working");
 		PuzzletoPanel();
 	}
 
@@ -60,26 +59,26 @@ public class Puzzle {
 
 		if (direction.equals("right")) {
 			newPos++;
-			System.out.println("Going " + direction);
+			//System.out.println("Going " + direction);
 			if (newPos != 4 && newPos != 8 && newPos != 12 && newPos != 16) {
 				actualMove(newPos);
 			}
 
 		} else if (direction.equals("left")) {
 			newPos--;
-			System.out.println("Going " + direction);
+			//System.out.println("Going " + direction);
 			if (newPos != -1 && newPos != 3 && newPos != 7 && newPos != 11) {
 				actualMove(newPos);
 			}
 		} else if (direction.equals("down")) {
 			newPos += 4;
-			System.out.println("Going " + direction);
+			//System.out.println("Going " + direction);
 			if (newPos <= 15) {
 				actualMove(newPos);
 			}
 		} else if (direction.equals("up")) {
 			newPos -= 4;
-			System.out.println("Going " + direction);
+			//System.out.println("Going " + direction);
 			if (newPos >= 0) {
 				actualMove(newPos);
 			}
@@ -88,13 +87,12 @@ public class Puzzle {
 
 	private void actualMove(int newPos) {
 		if (map.get(newPos) != null) {
-			Square savesquare = map.get(xPos);
+			System.out.println("xPos-" + xPos + " newPos-" + newPos);
+			Square saveblacksquare = map.get(xPos);
 			map.put(xPos, map.get(newPos));
 
-			map.put(newPos, savesquare);
+			map.put(newPos, saveblacksquare);
 			xPos = newPos;
-			 printmap();
-			 PuzzletoPanel();
 		}
 	}
 
@@ -109,13 +107,12 @@ public class Puzzle {
 	}
 
 	public JPanel PuzzletoPanel() {
-		System.out.println("Puzz ot pan");
 		JPanel jpanel = new JPanel();
-		int x = 10;
-		int y = 30;
+		int x = 0;
+		int y = 0;
 		int squareCounter=0;
 		for (int i = 0; i < 4; i++) {
-			x=10;
+			x=0;
 			for (int e = 0; e < 4; e++) {
 				Square square = map.get(squareCounter);
 				square.setCoordinates(x,y);
@@ -127,7 +124,7 @@ public class Puzzle {
 			}
 			y+=60;
 		}
-		jpanel.setBounds(10, 20, 500, 500);
+		jpanel.setBounds(10, 30, 500, 500);
 		return jpanel;
 	}
 }

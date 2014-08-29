@@ -17,8 +17,8 @@ public class Square {
 
 	Square(int number) {
 		if (number != 0) {
-			JLabel = new JLabel(number + "");
-			JLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
+			JLabel = new JLabel(Integer.toString(number));
+			JLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 			JLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			JLabel.setOpaque(true);
 			JLabel.setBackground(Color.green);
