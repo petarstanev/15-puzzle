@@ -40,7 +40,7 @@ public class Square {
 	}
 	
 	JLabel getJLabel(){
-		return this.JLabel;
+		return JLabel;
 	}
 
 	int getNumber() {

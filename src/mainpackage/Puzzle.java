@@ -11,8 +11,7 @@ import javax.swing.JPanel;
 public class Puzzle {
 	HashMap<Integer, Square> map;
 	int xPos = 0;
-	
-	
+
 	Puzzle() {
 		map = new HashMap<Integer, Square>();
 
@@ -59,26 +58,26 @@ public class Puzzle {
 
 		if (direction.equals("right")) {
 			newPos++;
-			//System.out.println("Going " + direction);
+			// System.out.println("Going " + direction);
 			if (newPos != 4 && newPos != 8 && newPos != 12 && newPos != 16) {
 				actualMove(newPos);
 			}
 
 		} else if (direction.equals("left")) {
 			newPos--;
-			//System.out.println("Going " + direction);
+			// System.out.println("Going " + direction);
 			if (newPos != -1 && newPos != 3 && newPos != 7 && newPos != 11) {
 				actualMove(newPos);
 			}
 		} else if (direction.equals("down")) {
 			newPos += 4;
-			//System.out.println("Going " + direction);
+			// System.out.println("Going " + direction);
 			if (newPos <= 15) {
 				actualMove(newPos);
 			}
 		} else if (direction.equals("up")) {
 			newPos -= 4;
-			//System.out.println("Going " + direction);
+			// System.out.println("Going " + direction);
 			if (newPos >= 0) {
 				actualMove(newPos);
 			}
@@ -110,19 +109,23 @@ public class Puzzle {
 		JPanel jpanel = new JPanel();
 		int x = 0;
 		int y = 0;
-		int squareCounter=0;
+		int squareCounter = 0;
 		for (int i = 0; i < 4; i++) {
-			x=0;
+			x = 0;
 			for (int e = 0; e < 4; e++) {
 				Square square = map.get(squareCounter);
-				square.setCoordinates(x,y);
-				JLabel label = square.getJLabel();
-				jpanel.add(label);				
+				if(square == null){
+					System.out.println("NO SQUARE");
+				}
 				
+				square.setCoordinates(x, y);
+				JLabel label = square.getJLabel();
+				jpanel.add(label, 3, 0);
+
 				squareCounter++;
-				x+=60;
+				x += 60;
 			}
-			y+=60;
+			y += 60;
 		}
 		jpanel.setBounds(10, 30, 500, 500);
 		return jpanel;
