@@ -43,8 +43,8 @@ import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
 
 public class MainFrame extends JFrame {
-	Puzzle puzzle = new Puzzle();;
-	JPanel gamepanel = puzzle.PuzzletoPanel();
+	Puzzle puzzle = new Puzzle();
+	JPanel gamejpanel = puzzle.PuzzletoPanel();
 
 	private JPanel contentPanel;
 
@@ -71,23 +71,24 @@ public class MainFrame extends JFrame {
 	public MainFrame() {
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 400, 400);
+		setBounds(100, 100, 265, 310);
 		contentPanel = new JPanel();
+		contentPanel.setForeground(new Color(176, 224, 230));
 		contentPanel.setVerifyInputWhenFocusTarget(false);
 
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPanel);
 		contentPanel.setLayout(null);
 
 		JMenuBar menuBar = new JMenuBar();
-		menuBar.setBounds(0, 0, 384, 20);
+		menuBar.setBounds(0, 0, 250, 20);
 		contentPanel.add(menuBar);
 
-		JMenu mnTestMenu = new JMenu("test menu");
-		menuBar.add(mnTestMenu);
+		JMenu gamemenu = new JMenu("Game");
+		menuBar.add(gamemenu);
 
 		final Panel panel = new Panel();
 
+		// I use Panel, because when I use JPanel redraw is not working !
 		panel.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -97,46 +98,54 @@ public class MainFrame extends JFrame {
 
 				switch (key) {
 				case "A":
-puzzle.move("left");
-					gamepanel = puzzle.PuzzletoPanel();
-					panel.repaint();
-					panel.add(gamepanel, 2, 0);					break;
+					if (puzzle.move("left")) {
+						gamejpanel = puzzle.PuzzletoPanel();
+						panel.repaint();
+						panel.add(gamejpanel, 2, 0);
+					}
+					break;
 				case "D":
-					puzzle.move("right");
-					gamepanel = puzzle.PuzzletoPanel();
-					panel.repaint();
-					panel.add(gamepanel, 2, 0);
+					if (puzzle.move("right")) {
+						gamejpanel = puzzle.PuzzletoPanel();
+						panel.repaint();
+						panel.add(gamejpanel, 2, 0);
+					}
 					break;
 				case "W":
-					puzzle.move("up");
-					gamepanel = puzzle.PuzzletoPanel();
-					panel.repaint();
-					panel.add(gamepanel, 2, 0);
+					if (puzzle.move("up")) {
+						gamejpanel = puzzle.PuzzletoPanel();
+						panel.repaint();
+						panel.add(gamejpanel, 2, 0);
+					}
 					break;
 				case "S":
-					puzzle.move("down");
-					gamepanel = puzzle.PuzzletoPanel();
-					panel.repaint();
-					panel.add(gamepanel, 2, 0);
+					if (puzzle.move("down")) {
+						gamejpanel = puzzle.PuzzletoPanel();
+						panel.repaint();
+						panel.add(gamejpanel, 2, 0);
+					}
 					break;
 				default:
 					System.out.println("not moving");
 				}
 			}
 		});
-		panel.setBackground(SystemColor.activeCaption);
-		panel.setBounds(10, 30, 400, 350);
+		panel.setBackground(new Color(176, 224, 230));// B0E0E6
+		panel.setBounds(0, 20, 250, 250);
+
 		contentPanel.add(panel, 1, 0);
+
 		JButton btnNewGame = new JButton("New game");
 
 		btnNewGame.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				puzzle = new Puzzle();
+				panel.repaint();
 				panel.add(puzzle.PuzzletoPanel());
-				contentPanel.repaint();
+
 			}
 		});
-		mnTestMenu.add(btnNewGame);
+		gamemenu.add(btnNewGame);
 
 	}
 }

@@ -1,5 +1,6 @@
 package mainpackage;
 
+import java.awt.Color;
 import java.util.Random;
 import java.util.HashMap;
 
@@ -53,7 +54,7 @@ public class Puzzle {
 		printmap();
 	}
 
-	public void move(String direction) {
+	public boolean move(String direction) {
 		int newPos = xPos;
 
 		if (direction.equals("right")) {
@@ -61,6 +62,7 @@ public class Puzzle {
 			// System.out.println("Going " + direction);
 			if (newPos != 4 && newPos != 8 && newPos != 12 && newPos != 16) {
 				actualMove(newPos);
+				return true;
 			}
 
 		} else if (direction.equals("left")) {
@@ -68,20 +70,24 @@ public class Puzzle {
 			// System.out.println("Going " + direction);
 			if (newPos != -1 && newPos != 3 && newPos != 7 && newPos != 11) {
 				actualMove(newPos);
+				return true;
 			}
 		} else if (direction.equals("down")) {
 			newPos += 4;
 			// System.out.println("Going " + direction);
 			if (newPos <= 15) {
 				actualMove(newPos);
+				return true;
 			}
 		} else if (direction.equals("up")) {
 			newPos -= 4;
 			// System.out.println("Going " + direction);
 			if (newPos >= 0) {
 				actualMove(newPos);
+				return true;
 			}
 		}
+		return false;
 	}
 
 	private void actualMove(int newPos) {
@@ -127,7 +133,8 @@ public class Puzzle {
 			}
 			y += 60;
 		}
-		jpanel.setBounds(10, 30, 500, 500);
+		jpanel.setBounds(10, 10, 230, 230);
+		jpanel.setBackground(new Color(176, 224, 230));
 		return jpanel;
 	}
 }

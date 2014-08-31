@@ -21,13 +21,13 @@ public class Square {
 			JLabel.setFont(new Font("Tahoma", Font.PLAIN, 40));
 			JLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			JLabel.setOpaque(true);
-			JLabel.setBackground(Color.green);
+			JLabel.setBackground(new Color(204,182,20));
 		} else {
 			JLabel = new JLabel("");
 			JLabel.setFont(new Font("Tahoma", Font.PLAIN, 50));
 			JLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			JLabel.setOpaque(true);
-			JLabel.setBackground(Color.black);
+			JLabel.setBackground(new Color(255,25,145));//CCB614
 		}
 		// contentPanel.add(JLabel);
 		this.number = number;
