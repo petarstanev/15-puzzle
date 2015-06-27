@@ -1,13 +1,21 @@
 package mainpackage;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Random;
+
+import javax.swing.JFrame;
 
 /**
  * Puzzle of the game
  *
  * @author Petar
  */
-public class Puzzle {
+public class Puzzle extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private Square[] map;
 	private int xPos = 0;
 
@@ -15,30 +23,37 @@ public class Puzzle {
 	 * Generate normal puzzle.From 0 to 16.
 	 */
 	public Puzzle() {
+		setResizable(false);
+		setBounds(200, 200, 600, 600);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setFocusable(true);
+		getContentPane().setLayout(null);
+
 		map = new Square[16];
+
+		int x = 10;
+		int y = 10;
+
 		for (int i = 0; i < 16; i++) {
-			Square singlesquare = new Square(i);
+			Square singlesquare = new Square(i, x, y);
 			map[i] = singlesquare;
+			getContentPane().add(singlesquare);
+			x += 60;
+			if (x == 250) {
+				x = 10;
+				y += 60;
+			}
 		}
+		addMovement();
 	}
 
-	/**
-	 * Generate random puzzle.
-	 * @param seed
-	 */
-	public Puzzle(String seed) {
-		map = new Square[16];
-		for (int i = 0; i < 16; i++) {
-			Square singlesquare = new Square(i);
-			map[i] = singlesquare;
-		}
-		// removed seed just for testing
+	public void random() {
 		Random random = new Random();
 		for (int i = 0; i < 10000; i++) {
 			int direction = random.nextInt(3);
 			switch (direction) {
 			case 0:
-				this.move("right");
+				move("right");
 				break;
 			case 1:
 				move("left");
@@ -51,48 +66,38 @@ public class Puzzle {
 				break;
 			}
 		}
-		printmap();
 	}
-	
+
 	/**
 	 * Move by given direction.
 	 * 
 	 * @param direction
 	 * @return
 	 */
-	public boolean move(String direction) {
+	public void move(String direction) {
 		int newPos = xPos;
-		int oldPos = xPos;
+
 		if (direction.equals("right")) {
 			newPos++;
-			// System.out.println("Going " + direction);
 			if (newPos != 4 && newPos != 8 && newPos != 12 && newPos != 16) {
-				actualMove(newPos, oldPos);
-				return true;
+				changePositionInArray(newPos);
 			}
 		} else if (direction.equals("left")) {
 			newPos--;
-			// System.out.println("Going " + direction);
 			if (newPos != -1 && newPos != 3 && newPos != 7 && newPos != 11) {
-				actualMove(newPos, oldPos);
-				return true;
+				changePositionInArray(newPos);
 			}
 		} else if (direction.equals("down")) {
 			newPos += 4;
-			// System.out.println("Going " + direction);
 			if (newPos <= 15) {
-				actualMove(newPos, oldPos);
-				return true;
+				changePositionInArray(newPos);
 			}
 		} else if (direction.equals("up")) {
 			newPos -= 4;
-			// System.out.println("Going " + direction);
 			if (newPos >= 0) {
-				actualMove(newPos, oldPos);
-				return true;
+				changePositionInArray(newPos);
 			}
 		}
-		return false;
 	}
 
 	/**
@@ -101,13 +106,10 @@ public class Puzzle {
 	 * @param newPos
 	 * @param oldPos
 	 */
-	private void actualMove(int newPos, int oldPos) {// 1
-		System.out.println("newPos-" + newPos + " oldPos-" + oldPos);
-		Square temp = map[newPos];
-		map[newPos] = map[oldPos];
-
-		map[oldPos] = temp;
-
+	private void changePositionInArray(int newPos) {
+		int tempNumber = map[newPos].getNumber();
+		map[newPos].setNumber(map[xPos].getNumber());
+		map[xPos].setNumber(tempNumber);
 		xPos = newPos;
 	}
 
@@ -122,5 +124,31 @@ public class Puzzle {
 			System.out.print(" " + map[i].getNumber());
 		}
 		System.out.println("");
+	}
+
+	public void printRow() {
+		for (int i = 0; i < 4; i++) {
+			System.out.println(map[i].getNumber() + "- X " + map[i].getX()
+					+ " Y " + map[i].getY());
+		}
+		System.out.println();
+	}
+
+	public void addMovement() {
+		addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent ke) {
+				if (ke.getKeyCode() == KeyEvent.VK_DOWN) {
+					move("down");
+				} else if (ke.getKeyCode() == KeyEvent.VK_UP) {
+					move("up");
+				} else if (ke.getKeyCode() == KeyEvent.VK_LEFT) {
+					move("left");
+				} else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
+					move("right");
+				}
+			}
+
+		});
 	}
 }
