@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.Random;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 /**
  * Puzzle of the game
@@ -12,13 +13,10 @@ import javax.swing.JFrame;
  * @author Petar
  */
 public class Puzzle extends JFrame {
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	private static final int LINE_SIZE = 10;
 	private Square[] map;
 	private int xPos = 0;
-
 	/**
 	 * Generate normal puzzle.From 0 to 16.
 	 */
@@ -31,17 +29,18 @@ public class Puzzle extends JFrame {
 
 		map = new Square[16];
 
-		int x = 10;
-		int y = 10;
+		
+		int x = LINE_SIZE;
+		int y = LINE_SIZE;
 
 		for (int i = 0; i < 16; i++) {
 			Square singlesquare = new Square(i, x, y);
 			map[i] = singlesquare;
 			getContentPane().add(singlesquare);
-			x += 60;
-			if (x == 250) {
-				x = 10;
-				y += 60;
+			x += LINE_SIZE+Square.SIZE;
+			if (x == LINE_SIZE*5+Square.SIZE*4) {
+				x = LINE_SIZE;
+				y += LINE_SIZE+Square.SIZE;
 			}
 		}
 		addMovement();
@@ -147,8 +146,19 @@ public class Puzzle extends JFrame {
 				} else if (ke.getKeyCode() == KeyEvent.VK_RIGHT) {
 					move("right");
 				}
+				checkForWin();
 			}
-
 		});
+	}
+	
+	public boolean checkForWin(){
+		for (int i = 1; i < 15; i++) {
+			Square square = map[i];
+			if(square.getNumber() != i){
+				return false;
+			}
+		}
+		String name = JOptionPane.showInputDialog("What is your name?", null);
+		return true;
 	}
 }

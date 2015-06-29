@@ -15,9 +15,6 @@ import java.awt.event.KeyEvent;
 
 public class Game {
 
-	private static final int SQUARE_SIZE = 50;
-	// private static final int LINE_SIZE = 50;
-
 	private JFrame puzzle;
 
 	/**
